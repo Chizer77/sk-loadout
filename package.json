@@ -1,6 +1,6 @@
 {
   "name": "sk-loadout",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Claude Code global loadout manager — hot-swap AI models and skill packages from the terminal",
   "license": "MIT",
   "author": "Chizer77",
