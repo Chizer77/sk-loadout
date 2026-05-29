@@ -1,0 +1,37 @@
+# ── Dependencies ──
+node_modules/
+
+# ── Build output ──
+dist/
+*.tsbuildinfo
+
+# ── Environment & secrets ──
+.env
+.env.*
+!.env.example
+
+# ── IDE & editors ──
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ── OS generated ──
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+
+# ── Coverage & tests ──
+coverage/
+.nyc_output/
+
+# ── Temp files ──
+*.tmp
+*.temp
+
