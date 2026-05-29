@@ -1,27 +1,33 @@
-<p align="center">
+<div align="center">
   <img src="./docs/banner.svg" alt="sk-loadout" />
-</p>
+  <h1>sk-loadout: Terminal skills manager for AI coding assistants.</h1>
+  <p>
+    <a href="https://www.npmjs.com/package/sk-loadout">
+      <img src="https://img.shields.io/npm/v/sk-loadout.svg" alt="npm" />
+    </a>
+    <a href="./package.json">
+      <img src="https://img.shields.io/badge/node-%3E%3D18-brightgreen.svg" alt="Node" />
+    </a>
+    <a href="./LICENSE">
+      <img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License: MIT" />
+    </a>
+  </p>
+</div>
 
-<p align="center">
-  <a href="https://www.npmjs.com/package/sk-loadout">
-    <img src="https://img.shields.io/npm/v/sk-loadout.svg" alt="npm" />
-  </a>
-  <a href="./package.json">
-    <img src="https://img.shields.io/badge/node-%3E%3D18-brightgreen.svg" alt="Node" />
-  </a>
-  <a href="./LICENSE">
-    <img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License: MIT" />
-  </a>
-</p>
+⚡️ A preset captures your model and skills for one work mode.
 
-Hot-swap AI assistant presets from the terminal.
+🎯 Switch presets and your assistant reconfigures instantly — no manual editing of settings files or symlinks.
 
-A preset captures the model and skills for one work mode. Switch presets and your assistant reconfigures instantly — no manual editing of settings files or symlinks.
+## ✨ Features
+
+- **Hot-swap presets** — change AI model + skills in a single command
+- **Multi-platform** — supports Claude Code, OpenCode, and Codex
+- **Symlink-based** — skills are mounted without copying files
 
 > [!IMPORTANT]
-> sk-loadout is a **manager**, not an installer. It organizes skills you already have — it does not download, generate, or distribute them. Skills from any source (manual creation, third-party repos, other tools) work as long as they land in the platform skills directory.
+> sk-loadout is a **manager**, not an installer. It organizes skills you already have — it does not download, generate, or distribute them.
 
-## Installation
+## 📦 Installation
 
 ```bash
 npm install -g sk-loadout
@@ -33,42 +39,20 @@ Or run once with `npx`:
 npx sk-loadout claude init
 ```
 
-## Quick Start
+## 🚀 Quick Start
 
 ```bash
-sk claude init                         # 1. bootstrap the environment
-sk claude save frontend --desc "UI"    # 2. snapshot current model + skills
-sk claude skill                        # 3. toggle skills interactively
-sk claude use frontend                 # 4. switch preset
-sk claude ls                           # 5. inspect state
+sk claude init                         # bootstrap
+sk claude save frontend --desc "UI"    # snapshot current model + skills
+sk claude skill                        # toggle skills interactively
+sk claude use frontend                 # switch preset
+sk claude ls                           # inspect state
 ```
 
 > [!TIP]
-> After one platform is initialized, `sk` auto-detects it — omit the platform name:
->
-> ```bash
-> sk ls
-> sk use frontend
-> sk save backend --desc "API work"
-> ```
+> After one platform is initialized, `sk` auto-detects it — omit the platform name and just run `sk ls`, `sk use frontend`, or `sk save backend --desc "API work"`.
 
-## Supported Platforms
-
-| Platform    | Prefix        |
-| ----------- | ------------- |
-| Claude Code | `sk claude`   |
-| OpenCode    | `sk opencode` |
-| Codex       | `sk codex`    |
-
-Same commands, any platform:
-
-```bash
-sk claude init    sk opencode init    sk codex init
-sk claude ls      sk opencode ls      sk codex ls
-sk claude use X   sk opencode use X   sk codex use X
-```
-
-## CLI Commands
+## ⌨️ CLI Commands
 
 | Command   | Description                                                |
 | --------- | ---------------------------------------------------------- |
@@ -85,7 +69,7 @@ sk claude use X   sk opencode use X   sk codex use X
 
 See [CLI Reference](./docs/cli.md) for full options and examples.
 
-## Agent Commands
+## 🤖 Agent Commands
 
 `init` generates slash-command helpers so AI agents can manage presets and skills directly in a conversation:
 
@@ -102,7 +86,15 @@ These work inside Claude Code, OpenCode, and Codex.
 > [!NOTE]
 > Commands are regenerated on each `init`. Save customizations before re-initializing.
 
-## Example Walkthrough
+## 🧩 Supported Agents
+
+| Agent       | Prefix        |
+| ----------- | ------------- |
+| Claude Code | `sk claude`   |
+| OpenCode    | `sk opencode` |
+| Codex       | `sk codex`    |
+
+## 📖 Example Walkthrough
 
 Start with a fresh Claude Code setup. You have a few skills in `~/.claude/skills/` — some you wrote, some from a third-party repo:
 
@@ -145,7 +137,7 @@ sk claude ls --json
 sk claude restore --dry-run
 ```
 
-## Scripting & CI
+## 🔧 Scripting & CI
 
 Use direct commands with `--yes` to skip prompts:
 
@@ -160,7 +152,7 @@ sk claude ls --json
 > [!NOTE]
 > `skill` and `use` require a TTY. Use `add` / `rm` / `use <name>` for automation.
 
-## Architecture
+## 🏗 Architecture
 
 ```text
 CLI → Commands → Core managers → Platform adapters → Assistant config + skill directories
@@ -168,7 +160,7 @@ CLI → Commands → Core managers → Platform adapters → Assistant config + 
 
 Preset state lives in `~/.sk-loadout`. Skills are mounted via symlinks (junctions on Windows). Model config is written through platform-specific adapters.
 
-## Documentation
+## 📚 Documentation
 
 - [CLI Reference](./docs/cli.md)
 - [Platform Support](./docs/platforms.md)

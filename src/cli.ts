@@ -66,7 +66,7 @@ const program = new Command();
 
 program
   .name('sk')
-  .description('Skill loadout manager — hot-swap AI models & skill packs')
+  .description('Terminal skills manager for AI coding assistants.')
   .version(pkg.version);
 
 for (const [id, def] of Object.entries(PLATFORM_REGISTRY)) {

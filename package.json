@@ -1,7 +1,7 @@
 {
   "name": "sk-loadout",
   "version": "0.1.1",
-  "description": "Claude Code global loadout manager — hot-swap AI models and skill packages from the terminal",
+  "description": "Terminal skills manager for AI coding assistants.",
   "license": "MIT",
   "author": "Chizer77",
   "repository": "github:Chizer77/sk-loadout",
@@ -54,6 +54,8 @@
   },
   "keywords": [
     "claude-code",
+    "codex",
+    "opencode",
     "cli",
     "loadout",
     "skill-manager",
