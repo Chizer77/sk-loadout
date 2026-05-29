@@ -1,6 +1,6 @@
 <div align="center">
   <img src="./docs/banner.svg" alt="sk-loadout" />
-  <h1>sk-loadout: Terminal skills manager for AI coding assistants.</h1>
+  <h1>sk-loadout: Terminal skills manager for AI Agent.</h1>
   <p>
     <a href="https://www.npmjs.com/package/sk-loadout">
       <img src="https://img.shields.io/npm/v/sk-loadout.svg" alt="npm" />
@@ -16,7 +16,7 @@
 
 ⚡️ A preset captures your model and skills for one work mode.
 
-🎯 Switch presets and your assistant reconfigures instantly — no manual editing of settings files or symlinks.
+🎯 Switch presets and your Agent reconfigures instantly — no manual editing of settings files or symlinks.
 
 ## ✨ Features
 
