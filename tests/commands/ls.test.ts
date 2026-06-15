@@ -14,7 +14,6 @@ const baseConfig = {
   presets: {
     base: {
       description: 'my preset',
-      modelConfig: { model: 'claude-sonnet', extra: {} },
       skills: ['helper.md'],
     },
   },
@@ -50,7 +49,7 @@ describe('ls command', () => {
     const output = logSpy.mock.calls.map((c) => c[0]).join('\n');
     expect(output).toContain('base');
     expect(output).toContain('my preset');
-    expect(output).toContain('claude-sonnet');
+    expect(output).toContain('helper.md');
     logSpy.mockRestore();
   });
 
@@ -60,10 +59,10 @@ describe('ls command', () => {
 
     await cmd.parseAsync(['node', 'ls', '--json']);
 
-    const jsonArg = logSpy.mock.calls[0]?.[0] as string;
-    const parsed = JSON.parse(jsonArg);
+    const jsonArg = logSpy.mock.calls.map((c) => c[0] as string).find((s) => s.startsWith('{'));
+    const parsed = JSON.parse(jsonArg!);
     expect(parsed.activePreset).toBe('base');
-    expect(parsed.model).toBe('claude-sonnet');
+    expect(parsed.mountedSkills).toBeInstanceOf(Array);
     expect(parsed.platform).toBe('claude');
     expect(parsed.presets).toBeInstanceOf(Array);
     logSpy.mockRestore();

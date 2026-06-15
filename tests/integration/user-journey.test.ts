@@ -1,10 +1,9 @@
 import { describe, it, expect, beforeAll, beforeEach, afterAll } from 'vitest';
-import { mkdtempSync, rmSync, writeFileSync, readFileSync, mkdirSync, lstatSync } from 'node:fs';
+import { mkdtempSync, rmSync, writeFileSync, mkdirSync, lstatSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 
 import type { SymlinkOps } from '../../src/core/symlink-ops.js';
-import type { SettingsFile } from '../../src/core/settings-file.js';
 import type { ConfigManager } from '../../src/core/config-manager.js';
 import type { Paths } from '../../src/utils/paths.js';
 import type { Logger } from '../../src/utils/logger.js';
@@ -30,7 +29,6 @@ let configManager: ConfigManager;
 let CfgManagerClass: typeof ConfigManager;
 let ops: SymlinkOps;
 let skillManager: import('../../src/core/skill-manager.js').SkillManager;
-let settingsPatcher: SettingsFile;
 const silentLogger: Logger = {
   debug() {},
   info() {},
@@ -52,15 +50,13 @@ function existsSync(p: string): boolean {
 beforeAll(async () => {
   process.env.SK_LOADOUT_HOME = testRoot;
   process.env.SK_CLAUDE_HOME = join(testRoot, '.claude');
-  const [cfgMod, setMod, psMod] = await Promise.all([
+  const [cfgMod, psMod] = await Promise.all([
     import('../../src/core/config-manager.js'),
-    import('../../src/core/settings-file.js'),
     import('../../src/core/skill-manager.js'),
   ]);
   CfgManagerClass = cfgMod.ConfigManager;
   skillManager = new psMod.SkillManager(testPaths, silentLogger);
   ops = skillManager.symlinkOps;
-  settingsPatcher = new setMod.SettingsFile(testPaths, 'claude', silentLogger);
   configManager = new CfgManagerClass(testPaths);
 });
 
@@ -91,7 +87,6 @@ describe('User Journey', () => {
     'init → create → switch → mount → ls → unmount → delete → uninstall',
     { timeout: 15000 },
     async () => {
-      const settingsPath = join(claudeDir, 'settings.json');
       const configPath = join(skLoadoutDir, 'claude.json');
 
       // 1. Init
@@ -101,7 +96,6 @@ describe('User Journey', () => {
           default: {
             name: 'default',
             description: '默认',
-            modelConfig: await settingsPatcher.getCurrentConfig(),
             skills: [],
           },
         },
@@ -120,10 +114,6 @@ describe('User Journey', () => {
       await configManager.setPreset({
         name: 'frontend',
         description: '前端开发背包',
-        modelConfig: {
-          model: 'deepseek-v4',
-          extra: { ANTHROPIC_BASE_URL: 'https://api.deepseek.com/anthropic' },
-        },
         skills: ['existing-skill.md'],
       });
       expect((await configManager.getPreset('frontend')).description).toBe('前端开发背包');
@@ -131,9 +121,7 @@ describe('User Journey', () => {
       // 3. Switch
       const fp = await configManager.getPreset('frontend');
       await skillManager.sync(fp.skills);
-      await settingsPatcher.apply(fp.modelConfig);
       await configManager.setActive('frontend');
-      expect(JSON.parse(readFileSync(settingsPath, 'utf-8')).model).toBe('deepseek-v4');
 
       // 4. Mount
       writeFileSync(join(storeDir, 'vue-helper.md'), '# Vue', 'utf-8');
@@ -166,7 +154,6 @@ describe('User Journey', () => {
         default: {
           name: 'default',
           description: '默认',
-          modelConfig: { model: 'test', extra: {} },
           skills: [],
         },
       },

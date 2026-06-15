@@ -28,7 +28,7 @@ sk claude init --dry-run
 | `--dry-run`     | Preview what init would do without making changes       |
 
 > [!NOTE]
-> `init` checks that the platform settings file exists. If not, it warns and exits — make sure the platform is installed before initializing sk-loadout.
+> `init` creates the default `base` preset and generates slash-command templates for quick skill management.
 
 ## `skill`
 
@@ -58,7 +58,7 @@ sk claude ls --json
 
 ## `save`
 
-Save the current model config + mounted skills as a preset.
+Save the current mounted skills as a preset.
 
 ```bash
 sk claude save                           # update current preset
@@ -78,7 +78,7 @@ sk claude use              # interactive picker (TTY required)
 sk claude use frontend     # direct switch
 ```
 
-Switching applies the preset's model config and syncs its skills.
+Switching syncs the preset's skills to the platform skills directory.
 
 ## `add`
 

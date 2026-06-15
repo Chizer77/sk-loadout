@@ -32,7 +32,7 @@ No. It is the fallback and cannot be deleted.
 
 ## What does a preset include?
 
-Model configuration (`model` + platform-specific fields) and a list of skill names.
+A description and a list of skill names.
 
 ## Why did auto-detection fail?
 

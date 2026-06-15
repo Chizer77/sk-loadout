@@ -56,7 +56,7 @@ export function getPaths(platform: PlatformId): Paths {
     presetConfig: join(skDir, `${platform}.json`),
     settingsPath: join(homeDir, def.settingsFile),
     settingsFormat: def.settingsFormat,
-    skillsDir: join(homeDir, def.skillsDir),
+    skillsDir: join(def.skillsHome ? join(homedir(), def.skillsHome) : homeDir, def.skillsDir),
     skillFormat: def.skillFormat,
     commandsDir: def.commandSubdir ? join(homeDir, def.commandSubdir) : undefined,
   };

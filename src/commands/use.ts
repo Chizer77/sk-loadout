@@ -35,13 +35,11 @@ Examples:
       const currentActive = await ctx.configManager.getActive();
       await ctx.skillManager.collect((skill) => ctx.configManager.addSkill(currentActive, skill));
       await ctx.skillManager.sync(targetPreset.skills);
-      await ctx.settingsFile.apply(targetPreset.modelConfig);
       await ctx.configManager.setActive(name);
 
       ctx.logger.success(`Switched to preset ${color.yellow(name)}`);
       console.log(`\n${color.bold(color.yellow('o  ' + name))}`);
       console.log(`   Description: ${targetPreset.description}`);
-      console.log(`   Model: ${color.magenta(targetPreset.modelConfig.model)}`);
       console.log(`   Skills: ${color.bold(color.green(String(targetPreset.skills.length)))}`);
       for (const s of targetPreset.skills) {
         console.log(`    [${color.green('*')}]    ${color.green(s)}`);

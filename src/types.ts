@@ -2,16 +2,9 @@ import { homedir } from 'node:os';
 import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
-export interface ModelConfig {
-  model: string;
-  /** Claude Code → env variables; OpenCode → provider options; Codex → provider config */
-  extra: Record<string, string>;
-}
-
 export interface Preset {
   name: string;
   description: string;
-  modelConfig: ModelConfig;
   skills: string[];
 }
 
@@ -43,6 +36,8 @@ export interface PlatformDef {
   id: PlatformId;
   label: string;
   homeDir: string;
+  /** Base directory for skills, relative to OS home. Defaults to homeDir. */
+  skillsHome?: string;
   settingsFile: string;
   settingsFormat: 'json' | 'jsonc' | 'toml';
   skillsDir: string;
@@ -74,9 +69,10 @@ export const PLATFORM_REGISTRY: Record<PlatformId, PlatformDef> = {
     id: 'codex',
     label: 'Codex',
     homeDir: '.codex',
+    skillsHome: '.agents',
     settingsFile: 'config.toml',
     settingsFormat: 'toml',
-    skillsDir: '.agents/skills',
+    skillsDir: 'skills',
     skillFormat: 'folder-skill-md',
   },
 };

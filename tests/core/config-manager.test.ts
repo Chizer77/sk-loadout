@@ -37,7 +37,6 @@ const sampleConfig: LoadoutConfig = {
     default: {
       name: 'default',
       description: '默认',
-      modelConfig: { model: 'test-model', extra: {} },
       skills: [],
     },
   },
@@ -68,7 +67,6 @@ describe('ConfigManager', () => {
         custom: {
           name: 'custom',
           description: '',
-          modelConfig: { model: 'x', extra: {} },
           skills: [],
         },
       },
@@ -102,7 +100,6 @@ describe('ConfigManager', () => {
     await manager.setPreset({
       name: 'backend',
       description: '后端',
-      modelConfig: { model: 'gpt', extra: {} },
       skills: [],
     });
     expect((await manager.getPreset('backend')).description).toBe('后端');
@@ -116,7 +113,6 @@ describe('ConfigManager', () => {
     await manager.setPreset({
       name: 'frontend',
       description: '前端',
-      modelConfig: { model: 'claude', extra: {} },
       skills: [],
     });
     await manager.setActive('frontend');
@@ -143,7 +139,6 @@ describe('ConfigManager', () => {
         'mode-x': {
           name: 'mode-x',
           description: 'test',
-          modelConfig: { model: 'test', extra: {} },
           skills: [],
         },
       },

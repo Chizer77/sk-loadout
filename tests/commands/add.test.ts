@@ -14,7 +14,6 @@ const baseConfig = {
   presets: {
     base: {
       description: 'default',
-      modelConfig: { model: 'claude', extra: {} },
       skills: [],
     },
   },

@@ -47,5 +47,5 @@ Back up these directories if they exist:
 ~/.sk-loadout
 ~/.claude/skills
 ~/.config/opencode/skills
-~/.codex/.agents/skills
+~/.agents/skills
 ```

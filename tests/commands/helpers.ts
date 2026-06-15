@@ -40,14 +40,12 @@ export function createMockContext(overrides: Partial<LoadoutContext> = {}): Load
       getPreset: vi.fn().mockResolvedValue({
         name: 'default',
         description: 'test preset',
-        modelConfig: { model: 'test-model', extra: {} },
         skills: ['skill-a.md'],
       }),
       listPresets: vi.fn().mockResolvedValue(['default']),
       setActive: vi.fn().mockResolvedValue(undefined),
       setPreset: vi.fn().mockResolvedValue(undefined),
       setSkills: vi.fn().mockResolvedValue(undefined),
-      setModel: vi.fn().mockResolvedValue(undefined),
       addSkill: vi.fn().mockResolvedValue(undefined),
       addSkills: vi.fn().mockResolvedValue(undefined),
       removeSkill: vi.fn().mockResolvedValue(undefined),
@@ -61,11 +59,6 @@ export function createMockContext(overrides: Partial<LoadoutContext> = {}): Load
       listStore: vi.fn().mockResolvedValue(['skill-a.md', 'skill-b.md']),
       listMounted: vi.fn().mockResolvedValue(['skill-a.md']),
       restore: vi.fn().mockResolvedValue(undefined),
-    } as any,
-    settingsFile: {
-      read: vi.fn().mockResolvedValue({}),
-      apply: vi.fn().mockResolvedValue(undefined),
-      getCurrentConfig: vi.fn().mockResolvedValue({ model: 'test', extra: {} }),
     } as any,
     symlinkOps: {
       createLink: vi.fn().mockResolvedValue(undefined),

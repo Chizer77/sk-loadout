@@ -32,7 +32,6 @@ Examples:
           platform,
           activePreset: currentActive,
           description: activePreset.description,
-          model: activePreset.modelConfig.model,
           mountedSkills,
           allSkills,
           presets: presets.map((name) => name),
@@ -43,7 +42,6 @@ Examples:
 
       console.log(`\n${color.yellow('o  ' + currentActive)}`);
       console.log(`   Description: ${activePreset.description}`);
-      console.log(`   Model: ${color.magenta(activePreset.modelConfig.model)}`);
       console.log(
         `   Skills: ${color.bold(color.green(String(mountedSkills.length)))}/${color.bold(color.green(String(allSkills.length)))}`,
       );

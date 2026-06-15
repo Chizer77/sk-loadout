@@ -75,7 +75,6 @@ Platform config directory (highest to lowest priority):
           ctx.logger.dryRun(
             `Would sync ${preset.skills.length} skill(s) for preset "${color.yellow(activePresetName)}".`,
           );
-          ctx.logger.dryRun(`Would apply model "${color.magenta(preset.modelConfig.model)}".`);
           if (ctx.paths.commandsDir)
             ctx.logger.dryRun(`Would generate commands in "${color.dim(ctx.paths.commandsDir)}".`);
           else ctx.logger.dryRun(`Would generate commands in "${color.dim(ctx.paths.skillsDir)}".`);
@@ -85,7 +84,6 @@ Platform config directory (highest to lowest priority):
         await mkdir(ctx.paths.storeDir, { recursive: true });
         await mkdir(ctx.paths.skillsDir, { recursive: true });
         await ctx.skillManager.sync(preset.skills);
-        await ctx.settingsFile.apply(preset.modelConfig);
         await ctx.configManager.setActive(preset.name);
         await generateCommandFiles(ctx);
 
@@ -98,21 +96,11 @@ Platform config directory (highest to lowest priority):
         return;
       }
 
-      // Fresh init: create default config from current platform settings
-      const settingsExist = await pathExists(ctx.paths.settingsPath);
-      if (!settingsExist) {
-        ctx.logger.warn(`Platform settings not found at "${color.dim(ctx.paths.settingsPath)}".`);
-        ctx.logger.warn(`Make sure ${platform} is installed.`);
-        return;
-      }
-      const modelConfig = await ctx.settingsFile.getCurrentConfig();
-
+      // Fresh init: create default config
       if (dry) {
         ctx.logger.dryRun(`Would create store at "${color.dim(ctx.paths.storeDir)}".`);
         ctx.logger.dryRun(`Would create skills dir at "${color.dim(ctx.paths.skillsDir)}".`);
-        ctx.logger.dryRun(
-          `Would create default preset "${color.yellow(DEFAULT_PRESET_NAME)}" with model "${color.magenta(modelConfig.model || '(none)')}".`,
-        );
+        ctx.logger.dryRun(`Would create default preset "${color.yellow(DEFAULT_PRESET_NAME)}".`);
         ctx.logger.dryRun(`Would write config to "${color.dim(ctx.paths.presetConfig)}".`);
         if (ctx.paths.commandsDir)
           ctx.logger.dryRun(`Would generate commands in "${color.dim(ctx.paths.commandsDir)}".`);
@@ -140,7 +128,6 @@ Platform config directory (highest to lowest priority):
           [DEFAULT_PRESET_NAME]: {
             name: DEFAULT_PRESET_NAME,
             description: `Default preset created by sk ${platform} init.`,
-            modelConfig,
             skills: [],
           },
         },

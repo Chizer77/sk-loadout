@@ -53,7 +53,6 @@ describe('init command', () => {
         presets: {
           base: {
             description: 'existing preset',
-            modelConfig: { model: 'claude', extra: {} },
             skills: [],
           },
         },

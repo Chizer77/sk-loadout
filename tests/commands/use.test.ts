@@ -38,12 +38,10 @@ describe('use command', () => {
           presets: {
             base: {
               description: 'default',
-              modelConfig: { model: 'old-model', extra: {} },
               skills: [],
             },
             target: {
               description: 'target preset',
-              modelConfig: { model: 'gpt-5', extra: { KEY: 'val' } },
               skills: [],
             },
           },
@@ -60,10 +58,6 @@ describe('use command', () => {
     // 验证 currentActive 已切换
     const config = JSON.parse(readFileSync(configPath, 'utf-8'));
     expect(config.currentActive).toBe('target');
-
-    // 验证 settings 已更新
-    const settings = JSON.parse(readFileSync(settingsPath, 'utf-8'));
-    expect(settings.model).toBe('gpt-5');
   });
 
   it('预设不存在时抛出错误', async () => {
@@ -75,7 +69,6 @@ describe('use command', () => {
           presets: {
             base: {
               description: 'default',
-              modelConfig: { model: 'claude', extra: {} },
               skills: [],
             },
           },

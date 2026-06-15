@@ -10,18 +10,21 @@ When set, sk-loadout uses `$SK_LOADOUT_HOME/.sk-loadout` instead of `~/.sk-loado
 
 ## Platform Homes
 
-| Variable           | Platform    | Overrides            |
-| ------------------ | ----------- | -------------------- |
-| `SK_CLAUDE_HOME`   | Claude Code | `~/.claude`          |
-| `SK_OPENCODE_HOME` | OpenCode    | `~/.config/opencode` |
-| `SK_CODEX_HOME`    | Codex       | `~/.codex`           |
+| Variable               | Platform         | Overrides            |
+| ---------------------- | ---------------- | -------------------- |
+| `SK_CLAUDE_HOME`       | Claude Code      | `~/.claude`          |
+| `SK_OPENCODE_HOME`     | OpenCode         | `~/.config/opencode` |
+| `SK_CODEX_HOME`        | Codex            | `~/.codex`           |
+| `SK_CODEX_SKILLS_HOME` | Codex skills dir | `~/.agents`          |
 
 ```bash
 # POSIX
 SK_CLAUDE_HOME=/tmp/claude sk claude init
+SK_CODEX_SKILLS_HOME=/custom/skills sk codex init
 
 # PowerShell
 $env:SK_CLAUDE_HOME="E:\sandbox\.claude"; sk claude init
+$env:SK_CODEX_SKILLS_HOME="E:\sandbox\skills"; sk codex init
 ```
 
 ## Logging

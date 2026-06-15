@@ -45,14 +45,17 @@ describe('getPaths', () => {
     delete process.env.SK_OPENCODE_HOME;
   });
 
-  it('resolves Codex paths', async () => {
+  it('resolves Codex paths with env var override', async () => {
     process.env.SK_CODEX_HOME = join(testRoot, '.codex');
     const { getPaths } = await import('../../src/utils/paths.js');
     const paths = getPaths('codex');
 
+    expect(paths.home).toBe(join(testRoot, '.codex'));
+    expect(paths.settingsPath).toBe(join(testRoot, '.codex', 'config.toml'));
     expect(paths.settingsFormat).toBe('toml');
     expect(paths.skillFormat).toBe('folder-skill-md');
-    expect(paths.skillsDir).toBe(join(testRoot, '.codex', '.agents', 'skills'));
+    // skillsHome defaults to ~/.agents (not affected by SK_CODEX_HOME)
+    expect(paths.skillsDir).toBe(join(homedir(), '.agents', 'skills'));
     delete process.env.SK_CODEX_HOME;
   });
 

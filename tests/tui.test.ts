@@ -18,7 +18,6 @@ vi.mock('@clack/prompts', () => ({
 const base = {
   platform: 'claude' as const,
   paths: {} as any,
-  settingsFile: {} as any,
   symlinkOps: {} as any,
   logger: silentLogger,
 };
@@ -91,7 +90,6 @@ describe('selectPreset', () => {
           Promise.resolve({
             name,
             description: `${name} preset`,
-            modelConfig: { model: 'test', extra: {} },
             skills: [],
           }),
         ),
@@ -116,7 +114,6 @@ describe('selectPreset', () => {
           Promise.resolve({
             name,
             description: `${name} preset`,
-            modelConfig: { model: 'test', extra: {} },
             skills: [],
           }),
         ),
@@ -154,7 +151,6 @@ describe('selectPreset', () => {
         getPreset: vi.fn().mockResolvedValue({
           name: 'preset-a',
           description: 'a',
-          modelConfig: { model: 'test', extra: {} },
           skills: [],
         }),
       } as any,

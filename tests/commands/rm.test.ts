@@ -15,7 +15,6 @@ function baseConfig(extra?: Record<string, unknown>) {
     presets: {
       base: {
         description: 'default',
-        modelConfig: { model: 'claude', extra: {} },
         skills: ['skill.md'],
       },
       ...extra,
@@ -65,7 +64,6 @@ describe('rm command', () => {
         baseConfig({
           mypreset: {
             description: 'custom',
-            modelConfig: { model: 'gpt', extra: {} },
             skills: [],
           },
         }),

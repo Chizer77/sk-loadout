@@ -42,13 +42,9 @@ export async function selectPreset(ctx: LoadoutContext, excludeDefault = false):
   if (names.length === 0)
     throw new LoadoutError(ErrorCode.PRESET_NOT_FOUND, 'No presets available.');
 
-  const presets = await Promise.all(names.map((n) => ctx.configManager.getPreset(n)));
   const result = await select({
     message: `Select preset (${names.length} available)`,
-    options: names.map((n, i) => {
-      const p = presets[i]!;
-      return { value: n, label: n, hint: p.modelConfig.model };
-    }),
+    options: names.map((n) => ({ value: n, label: n })),
   });
   handleCancel(result);
   return result;

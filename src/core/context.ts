@@ -1,6 +1,5 @@
 import { ConfigManager } from './config-manager.js';
 import { SkillManager } from './skill-manager.js';
-import { SettingsFile } from './settings-file.js';
 import { ConsoleLogger, type Logger } from '../utils/logger.js';
 import { getPaths, type Paths } from '../utils/paths.js';
 import type { PlatformId } from '../types.js';
@@ -10,7 +9,6 @@ export interface LoadoutContext {
   paths: Paths;
   configManager: ConfigManager;
   skillManager: SkillManager;
-  settingsFile: SettingsFile;
   symlinkOps: SkillManager['symlinkOps'];
   logger: Logger;
 }
@@ -24,7 +22,6 @@ export function createLoadoutContext(platform: PlatformId): LoadoutContext {
     paths,
     configManager: new ConfigManager(paths),
     skillManager,
-    settingsFile: new SettingsFile(paths, platform, logger),
     symlinkOps: skillManager.symlinkOps,
     logger,
   };

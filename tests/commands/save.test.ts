@@ -43,7 +43,6 @@ describe('save command', () => {
           presets: {
             base: {
               description: 'old desc',
-              modelConfig: { model: 'claude', extra: {} },
               skills: [],
             },
           },
@@ -57,7 +56,7 @@ describe('save command', () => {
     await cmd.parseAsync(['node', 'save']);
 
     const config = readConfig();
-    expect(config.presets.base.modelConfig.model).toBe('claude-sonnet');
+    expect(config.currentActive).toBe('base');
   });
 
   it('有参数时创建新预设', async () => {
@@ -69,7 +68,6 @@ describe('save command', () => {
           presets: {
             base: {
               description: 'default',
-              modelConfig: { model: 'claude', extra: {} },
               skills: [],
             },
           },
@@ -97,12 +95,10 @@ describe('save command', () => {
           presets: {
             base: {
               description: 'default',
-              modelConfig: { model: 'claude', extra: {} },
               skills: [],
             },
             existing: {
               description: 'old desc',
-              modelConfig: { model: 'old-model', extra: {} },
               skills: [],
             },
           },

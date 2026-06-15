@@ -67,7 +67,6 @@ beforeEach(async () => {
       default: {
         name: 'default',
         description: '',
-        modelConfig: { model: '', extra: {} },
         skills: [],
       },
     },
