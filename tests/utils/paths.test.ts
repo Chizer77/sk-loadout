@@ -59,6 +59,18 @@ describe('getPaths', () => {
     delete process.env.SK_CODEX_HOME;
   });
 
+  it('resolves Codex skills home via SK_CODEX_SKILLS_HOME', async () => {
+    process.env.SK_CODEX_HOME = join(testRoot, '.codex');
+    process.env.SK_CODEX_SKILLS_HOME = join(testRoot, 'custom-skills');
+    const { getPaths } = await import('../../src/utils/paths.js');
+    const paths = getPaths('codex');
+
+    expect(paths.home).toBe(join(testRoot, '.codex'));
+    expect(paths.skillsDir).toBe(join(testRoot, 'custom-skills', 'skills'));
+    delete process.env.SK_CODEX_HOME;
+    delete process.env.SK_CODEX_SKILLS_HOME;
+  });
+
   it('falls back to OS default when no env var set', async () => {
     // Temporarily unset, but since we're in a test the OS default
     // is the real homedir — verify the structure is correct at least

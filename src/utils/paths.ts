@@ -5,6 +5,7 @@ import {
   PLATFORM_REGISTRY,
   ENV_LOADOUT_HOME,
   ENV_PLATFORM_HOME,
+  ENV_PLATFORM_SKILLS_HOME,
   type PlatformId,
 } from '../types.js';
 
@@ -46,6 +47,14 @@ export interface Paths {
   commandsDir: string | undefined;
 }
 
+function getSkillsBase(platform: PlatformId, resolvedHome: string): string {
+  const def = PLATFORM_REGISTRY[platform];
+  const envKey = ENV_PLATFORM_SKILLS_HOME[platform];
+  if (envKey && process.env[envKey]) return process.env[envKey];
+  if (def.skillsHome) return join(homedir(), def.skillsHome);
+  return resolvedHome;
+}
+
 export function getPaths(platform: PlatformId): Paths {
   const skDir = getSkLoadoutDir();
   const def = PLATFORM_REGISTRY[platform];
@@ -56,7 +65,7 @@ export function getPaths(platform: PlatformId): Paths {
     presetConfig: join(skDir, `${platform}.json`),
     settingsPath: join(homeDir, def.settingsFile),
     settingsFormat: def.settingsFormat,
-    skillsDir: join(def.skillsHome ? join(homedir(), def.skillsHome) : homeDir, def.skillsDir),
+    skillsDir: join(getSkillsBase(platform, homeDir), def.skillsDir),
     skillFormat: def.skillFormat,
     commandsDir: def.commandSubdir ? join(homeDir, def.commandSubdir) : undefined,
   };

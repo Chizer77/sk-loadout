@@ -32,6 +32,11 @@ export const ENV_PLATFORM_HOME: Record<PlatformId, string> = {
   codex: 'SK_CODEX_HOME',
 };
 
+/** Per-platform env var that overrides the skills base directory. */
+export const ENV_PLATFORM_SKILLS_HOME: Partial<Record<PlatformId, string>> = {
+  codex: 'SK_CODEX_SKILLS_HOME',
+};
+
 export interface PlatformDef {
   id: PlatformId;
   label: string;
